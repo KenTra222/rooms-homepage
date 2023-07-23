@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import './App.css'
 import { Canvas } from '@react-three/fiber'
 import{ ScrollControls, Scroll} from '@react-three/drei'
@@ -25,17 +25,24 @@ const infoTexts = [
 ]
 
 
-function App() {
-
+function App(props) {
+  const cubeRef = useRef()
+  const sphereRef = useRef()
+  const torusRef = useRef()
+console.log(cubeRef)
 
 const [currentIndex, setCurrentIndex] = useState(0)
+const [meshPosition, setMeshPosition] = useState([0,0,0])
 
 const next = () => {
   setCurrentIndex((prevIndex) => (prevIndex + 1 ) % infoTexts.length)
+
+  setMeshPosition((prevPosition) => [(prevPosition[0] + 10) % (10 * infoTexts.length), prevPosition[1], prevPosition[2]]);
 }
 
 const prev = () => {
   setCurrentIndex((prevIndex) => (prevIndex - 1 + infoTexts.length) % infoTexts.length)
+  setMeshPosition((prevPosition) => [(prevPosition[0] - 10 + 10 * infoTexts.length) % (10 * infoTexts.length), prevPosition[1], prevPosition[2]]);
 }
 
   return (
@@ -47,20 +54,24 @@ const prev = () => {
            <Canvas flat>
             <ambientLight/>
             <ScrollControls horizontal>
-            <mesh position={[0,0,0]}>
-              <boxGeometry/>
-              <meshStandardMaterial color='red'/>
-            </mesh>
 
-            <mesh position={[10,0,0]}>
-              <sphereGeometry/>
-              <meshStandardMaterial color='green'/>
-            </mesh>
+            <group>
+              <mesh ref={cubeRef} position={meshPosition}>
+                <boxGeometry/>
+                <meshStandardMaterial color='red'/>
+              </mesh>
 
-            <mesh position={[20,0,0]}>
-              <torusGeometry/>
-              <meshStandardMaterial color='blue'/>
-            </mesh>
+              <mesh ref={sphereRef} position={[meshPosition[0] - 10, meshPosition[1], meshPosition[2]]}>
+                <sphereGeometry/>
+                <meshStandardMaterial color='green'/>
+              </mesh>
+
+              <mesh ref={torusRef} position={[meshPosition[0] - 20, meshPosition[1], meshPosition[2]]}>
+                <torusGeometry/>
+                <meshStandardMaterial color='blue'/>
+              </mesh>
+            </group>
+
             <Scroll html>
             <NavBar/>
             </Scroll>
