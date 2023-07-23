@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react'
 import './App.css'
 import { Canvas } from '@react-three/fiber'
-import{ ScrollControls, Scroll} from '@react-three/drei'
+import{ ScrollControls, Scroll, useGLTF, useFBX} from '@react-three/drei'
 import NavBar from './Components/NavBar'
 import {useAtom, atom} from 'jotai'
 
@@ -26,10 +26,12 @@ const infoTexts = [
 
 
 function App(props) {
+
+  const model0 = useFBX('/Wood_Interior.FBX')
   const cubeRef = useRef()
   const sphereRef = useRef()
   const torusRef = useRef()
-console.log(cubeRef)
+ 
 
 const [currentIndex, setCurrentIndex] = useState(0)
 const [meshPosition, setMeshPosition] = useState([0,0,0])
@@ -38,7 +40,7 @@ const next = () => {
   setCurrentIndex((prevIndex) => (prevIndex + 1 ) % infoTexts.length)
   setMeshPosition((prevPosition) => [(prevPosition[0] + 10) % (10 * infoTexts.length), prevPosition[1], prevPosition[2]]);
 }
-
+ 
 const prev = () => {
   setCurrentIndex((prevIndex) => (prevIndex - 1 + infoTexts.length) % infoTexts.length)
   setMeshPosition((prevPosition) => [(prevPosition[0] - 10 + 10 * infoTexts.length) % (10 * infoTexts.length), prevPosition[1], prevPosition[2]]);
@@ -50,15 +52,13 @@ const prev = () => {
     {/* hero canvas */}
       <div className=" lg:row-span-2 lg:col-span-4 col-span-2 row-span-2 ">
           <section className='bg-gray-500 lg:w-full lg:h-full'>
-           <Canvas flat>
-            <ambientLight/>
+           <Canvas flat linear>
+            <ambientLight intensity={2}/>
             <ScrollControls horizontal>
 
             <group>
-              <mesh ref={cubeRef} position={meshPosition}>
-                <boxGeometry/>
-                <meshStandardMaterial color='red'/>
-              </mesh>
+              <primitive scale={0.025} rotation={[Math.PI * .25, Math.PI * .75, 0]} object={model0} position={meshPosition}>
+              </primitive>
 
               <mesh ref={sphereRef} position={[meshPosition[0] - 10, meshPosition[1], meshPosition[2]]}>
                 <sphereGeometry/>
@@ -80,7 +80,7 @@ const prev = () => {
         
       </div>
 {/* info + call to action section  */}
-      <div className=" lg:col-span-3 lg:row-span-2 col-span-2 flex justify-between  pt-12 pr-8 flex-col row-span-2">
+      <div className=" lg:col-span-3 lg:row-span-2 col-span-2 flex justify-between  pt-12  flex-col row-span-2">
        
         <div className='w-8/12 mx-auto  flex flex-col justify-evenly'>
           <h2 className='text-3xl    font-bold '>{infoTexts[currentIndex].heading}</h2>
