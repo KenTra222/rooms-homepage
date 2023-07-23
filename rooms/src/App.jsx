@@ -48,7 +48,7 @@ const prev = () => {
   return (
     
     <div className="w-screen h-screen grid grid-cols-7 grid-rows-3">
-
+    {/* hero canvas */}
       <div className=" row-span-2 col-span-4 ">
           <section className='bg-gray-500 w-full h-full'>
            <Canvas flat>
@@ -80,21 +80,27 @@ const prev = () => {
           </section>
         
       </div>
-
-      <div className=" col-span-3 row-span-2 flex justify-between  pt-12 flex-col">
+{/* info + call to action section  */}
+      <div className=" col-span-3 row-span-2 flex justify-between  pt-12 pr-8 flex-col">
        
-        <div className='w-8/12 mx-auto my-0 flex flex-col justify-evenl'>
+        <div className='w-8/12 mx-auto  flex flex-col justify-evenl'>
           <h2 className='text-3xl    font-bold '>{infoTexts[currentIndex].heading}</h2>
           <p className='text-sm my-4'> {infoTexts[currentIndex].text}</p>
-          <a href='#' className='uppercase text-black hover:text-gray-700 '>shop now</a>
+          <a href='#' className='uppercase text-black hover:text-gray-700 flex items-center'>shop now <img className='ml-3 text-black hover:text-gray-700' src='/icon-arrow.svg'/></a>
         </div>
 
-        <div className='relative bottom-0 left-0 '>
-          <button onClick={prev} className=' bg-black text-white w-16 h-16 hover:bg-gray-800'>left</button>
-          <button onClick={next} className=' bg-black text-white w-16 h-16 hover:bg-gray-800' >right</button>
-        </div>
+        <div className='relative bottom-0 left-0 flex'>
+        {/* Use CSS and flexbox to center the SVG images for Prev and Next */}
+        <button onClick={prev} className='bg-black text-white w-16 h-16 hover:bg-gray-800' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <img src='/icon-angle-left.svg' alt='prev' />
+        </button>
+        <button onClick={next} className='bg-black text-white w-16 h-16 hover:bg-gray-800' style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <img src='/icon-angle-right.svg' alt="next" />
+        </button>
       </div>
+    </div>
 
+{/* about section */}
 
       <div className=" col-span-2 ">
         <img className='h-full w-full' src='/image-about-dark.jpg'/>
