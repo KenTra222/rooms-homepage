@@ -36,7 +36,6 @@ const [meshPosition, setMeshPosition] = useState([0,0,0])
 
 const next = () => {
   setCurrentIndex((prevIndex) => (prevIndex + 1 ) % infoTexts.length)
-
   setMeshPosition((prevPosition) => [(prevPosition[0] + 10) % (10 * infoTexts.length), prevPosition[1], prevPosition[2]]);
 }
 
@@ -47,10 +46,10 @@ const prev = () => {
 
   return (
     
-    <div className="w-screen h-screen grid grid-cols-7 grid-rows-3">
+    <div className="w-screen h-screen grid lg:grid-cols-7 lg:grid-rows-3 lg:gap-0 grid-cols-2 grid-rows-10 gap-2">
     {/* hero canvas */}
-      <div className=" row-span-2 col-span-4 ">
-          <section className='bg-gray-500 w-full h-full'>
+      <div className=" lg:row-span-2 lg:col-span-4 col-span-2 row-span-2 ">
+          <section className='bg-gray-500 lg:w-full lg:h-full'>
            <Canvas flat>
             <ambientLight/>
             <ScrollControls horizontal>
@@ -81,9 +80,9 @@ const prev = () => {
         
       </div>
 {/* info + call to action section  */}
-      <div className=" col-span-3 row-span-2 flex justify-between  pt-12 pr-8 flex-col">
+      <div className=" lg:col-span-3 lg:row-span-2 col-span-2 flex justify-between  pt-12 pr-8 flex-col row-span-2">
        
-        <div className='w-8/12 mx-auto  flex flex-col justify-evenl'>
+        <div className='w-8/12 mx-auto  flex flex-col justify-evenly'>
           <h2 className='text-3xl    font-bold '>{infoTexts[currentIndex].heading}</h2>
           <p className='text-sm my-4'> {infoTexts[currentIndex].text}</p>
           <a href='#' className='uppercase text-black hover:text-gray-700 flex items-center'>shop now <img className='ml-3 text-black hover:text-gray-700' src='/icon-arrow.svg'/></a>
@@ -102,14 +101,14 @@ const prev = () => {
 
 {/* about section */}
 
-      <div className=" col-span-2 ">
+      <div className=" lg:col-span-2 bg-black row-span-2 ">
         <img className='h-full w-full' src='/image-about-dark.jpg'/>
       </div>
-      <div className="flex flex-col justify-center text-left col-span-3 px-8">
+      <div className="flex flex-col justify-center lg:text-left lg:col-span-3 col-span-2 px-8 row-span-2 w-full h-full">
         <h3 className="font-medium mb-4">About Our Furniture</h3>
         <p>our multifunctional collections blends design to suite your individual taste. Make each unique or pick an cohesive theme that best express your interest and what inspires you. Find furniture your need from traditional and contemporary styles or anything in between. product specialist are available to help you create your dream space.</p>
       </div>
-      <div className=" col-span-2 p-0">
+      <div className=" lg:col-span-2 col-span-2 p-0 bg-black row-span-2">
       <img className='h-full w-full' src='/image-about-light.jpg'/>
       </div>
     </div>
