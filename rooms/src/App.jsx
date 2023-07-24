@@ -1,9 +1,12 @@
 import { useState, useRef } from 'react'
 import './App.css'
 import { Canvas } from '@react-three/fiber'
-import{ ScrollControls, Scroll, useGLTF, useFBX} from '@react-three/drei'
+import{ ScrollControls, Scroll, useGLTF, useFBX, Center, OrbitControls} from '@react-three/drei'
 import NavBar from './Components/NavBar'
 import {useAtom, atom} from 'jotai'
+import { IndustrialDesk } from './Components/Industrial'
+import { Ottoman } from './Components/Ottoman'
+import { Armchair } from './Components/ARMCHAIR'
 
 
 
@@ -26,8 +29,9 @@ const infoTexts = [
 
 
 function App(props) {
+ 
+  
 
-  const model0 = useFBX('/Wood_Interior.FBX')
   const cubeRef = useRef()
   const sphereRef = useRef()
   const torusRef = useRef()
@@ -53,23 +57,21 @@ const prev = () => {
       <div className=" lg:row-span-2 lg:col-span-4 col-span-2 row-span-2 ">
           <section className='bg-gray-500 lg:w-full lg:h-full'>
            <Canvas flat linear>
-            <ambientLight intensity={2}/>
+            <ambientLight intensity={2} position={[0, 3, 0]}/>
+            <OrbitControls/>
             <ScrollControls horizontal>
+          
 
-            <group>
-              <primitive scale={0.025} rotation={[Math.PI * .25, Math.PI * .75, 0]} object={model0} position={meshPosition}>
-              </primitive>
+            <group >
+          <IndustrialDesk  customScale={2} customRotation={[Math.PI * -.015, Math.PI * .075, 0]}  position={meshPosition}/>
 
-              <mesh ref={sphereRef} position={[meshPosition[0] - 10, meshPosition[1], meshPosition[2]]}>
-                <sphereGeometry/>
-                <meshStandardMaterial color='green'/>
-              </mesh>
+                
+          <Ottoman customScale={4} position={[meshPosition[0] - 10, meshPosition[1], meshPosition[2]]}/>
 
-              <mesh ref={torusRef} position={[meshPosition[0] - 20, meshPosition[1], meshPosition[2]]}>
-                <torusGeometry/>
-                <meshStandardMaterial color='blue'/>
-              </mesh>
+          <Armchair customScale={2.5} position={[meshPosition[0] - 20, meshPosition[1], meshPosition[2]]}/>
             </group>
+
+            
 
             <Scroll html>
             <NavBar/>
