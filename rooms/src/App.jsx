@@ -1,13 +1,14 @@
 import { useState, useRef, Suspense } from 'react'
 import './App.css'
 import { Canvas, useFrame} from '@react-three/fiber'
-import{ ScrollControls, Scroll, useFBX, OrbitControls, useTexture} from '@react-three/drei'
+import{ ScrollControls, Scroll, Stage} from '@react-three/drei'
 import NavBar from './Components/NavBar'
 import { Perf } from 'r3f-perf'
 import { FairView } from './Components/FairView'
 import { GrayChair } from './Components/GrayChairglb'
 import { RedSofa } from './Components/Red_sofa_glb'
 import Vase from './Components/Vase'
+import Pillows from './Components/Pillows'
 
 
 
@@ -33,11 +34,7 @@ function App(props) {
  
   
 
-  const cubeRef = useRef()
-  const sphereRef = useRef()
-  const torusRef = useRef()
-
- 
+   
 const [currentIndex, setCurrentIndex] = useState(0)
 const [meshPosition, setMeshPosition] = useState([0,0,0])
 
@@ -56,32 +53,35 @@ const prev = () => {
     <div className="w-screen h-screen grid lg:grid-cols-7 lg:grid-rows-3 lg:gap-0 grid-cols-2 grid-rows-10 gap-2">
     {/* hero canvas */}
       <div className=" lg:row-span-2 lg:col-span-4 col-span-2 row-span-2 ">
-          <section className='bg-gray-700 lg:w-full lg:h-full'>
+          <section className='bg-zinc-600 lg:w-full lg:h-full'>
            <Canvas flat linear>
             <ambientLight intensity={0.7} position={[4, 3, 0]} castShadow/>
             <spotLight position={[0, 3,0]} intensity={1.5}/>
-            <OrbitControls/>
+         
             <ScrollControls horizontal>
 
-              <Perf position='top-left'/>
-          
+ 
+
+
 
             <group position-y={-2}>
               <Suspense>
-                <group position={[1.2,0,0]}>
+                <group position={meshPosition}>
+                  <Pillows/>
 
-               <RedSofa  customScale={0.0321} customRotation={[Math.PI * -.015, Math.PI * .075, 0]}  position={meshPosition}/>
+               <RedSofa  customScale={0.0321} customRotation={[Math.PI * -.015, Math.PI * .075, 0]} position-x={1}  />
                 </group>
            <group position={[meshPosition[0] - 10, meshPosition[1], meshPosition[2]]}>
 
-              <FairView customScale={3.5} customRotation={[Math.PI * .095, Math.PI * .075, 0]} />
+              <FairView customScale={3.5} customRotation={[Math.PI * .095, Math.PI * .075, 0]}  />
               <Vase/>
            </group>
               <GrayChair customRotation={[Math.PI * -.015, Math.PI * .15, 0]} customScale={55} position={[meshPosition[0] - 20, meshPosition[1], meshPosition[2]]}/>
               </Suspense>
             </group>
-
+ 
             
+        
 
             <Scroll html>
             <NavBar/>
