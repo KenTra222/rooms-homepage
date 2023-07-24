@@ -9,7 +9,7 @@ import { useGLTF } from '@react-three/drei'
 export function Armchair(props) {
   const { nodes, materials } = useGLTF('models/ARMCHAIR.glb')
   return (
-    <group {...props} dispose={null} scale={props.customScale}>
+    <group {...props} dispose={null} scale={props.customScale} rotation={props.customRotation}>
       <mesh geometry={nodes.ALMOFADINHAS.geometry} material={materials['Fabric Upholstery 001a']} position={[0.231, 0.608, 0.048]} rotation={[0, -0.713, 0]} />
       <mesh geometry={nodes.ALMOFADINHAS001.geometry} material={materials['Fabric Upholstery 001a']} position={[0.043, 0.554, 0.044]} rotation={[0, -0.713, 0]} />
       <mesh geometry={nodes.ASSENTO_SOLTO.geometry} material={materials['Fabric Upholstery 001a']} position={[0.027, 0, 0.025]} rotation={[0, -0.014, 0]} />
