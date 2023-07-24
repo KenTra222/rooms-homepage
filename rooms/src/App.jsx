@@ -1,15 +1,13 @@
 import { useState, useRef, Suspense } from 'react'
 import './App.css'
 import { Canvas, useFrame} from '@react-three/fiber'
-import{ ScrollControls, Scroll,  OrbitControls} from '@react-three/drei'
+import{ ScrollControls, Scroll, useFBX, OrbitControls, useTexture} from '@react-three/drei'
 import NavBar from './Components/NavBar'
-import {useAtom, atom} from 'jotai'
-import { IndustrialDesk } from './Components/Industrial'
-import { Ottoman } from './Components/Ottoman'
-import { Armchair } from './Components/ARMCHAIR'
 import { Perf } from 'r3f-perf'
 import { FairView } from './Components/FairView'
 import { GrayChair } from './Components/GrayChairglb'
+import { RedSofa } from './Components/Red_sofa_glb'
+import Vase from './Components/Vase'
 
 
 
@@ -38,8 +36,8 @@ function App(props) {
   const cubeRef = useRef()
   const sphereRef = useRef()
   const torusRef = useRef()
- 
 
+ 
 const [currentIndex, setCurrentIndex] = useState(0)
 const [meshPosition, setMeshPosition] = useState([0,0,0])
 
@@ -62,6 +60,7 @@ const prev = () => {
            <Canvas flat linear>
             <ambientLight intensity={0.7} position={[4, 3, 0]} castShadow/>
             <spotLight position={[0, 3,0]} intensity={1.5}/>
+            <OrbitControls/>
             <ScrollControls horizontal>
 
               <Perf position='top-left'/>
@@ -69,11 +68,15 @@ const prev = () => {
 
             <group position-y={-2}>
               <Suspense>
+                <group position={[1.2,0,0]}>
 
-              <IndustrialDesk  customScale={2} customRotation={[Math.PI * -.015, Math.PI * .075, 0]}  position={meshPosition}/>  
-               
-              <FairView customScale={4} customRotation={[Math.PI * .095, Math.PI * .075, 0]} position={[meshPosition[0] - 10, meshPosition[1], meshPosition[2]]}/>
- 
+               <RedSofa  customScale={0.0321} customRotation={[Math.PI * -.015, Math.PI * .075, 0]}  position={meshPosition}/>
+                </group>
+           <group position={[meshPosition[0] - 10, meshPosition[1], meshPosition[2]]}>
+
+              <FairView customScale={3.5} customRotation={[Math.PI * .095, Math.PI * .075, 0]} />
+              <Vase/>
+           </group>
               <GrayChair customRotation={[Math.PI * -.015, Math.PI * .15, 0]} customScale={55} position={[meshPosition[0] - 20, meshPosition[1], meshPosition[2]]}/>
               </Suspense>
             </group>
