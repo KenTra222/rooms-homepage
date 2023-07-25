@@ -4,7 +4,7 @@ import{  useFBX, useTexture} from '@react-three/drei'
 const Vase = () => {
 
     const vase = useFBX('public/models/Vase_23.FBX')
-    const vaseTexture = useTexture('/textures/Vase_23_color.jpg')
+    
     
   return (
     
