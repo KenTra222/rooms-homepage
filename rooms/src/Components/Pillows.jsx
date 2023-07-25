@@ -5,8 +5,8 @@ import{  useFBX, useTexture} from '@react-three/drei'
 const Pillows = () => {
 
     
-    const pillow0 = useFBX('public/models/pillow0.fbx')
-    const pillow1 = useFBX('public/models/Pillow1.fbx')
+    const pillow0 = useFBX('models/pillow0.fbx')
+    const pillow1 = useFBX('models/Pillow1.fbx')
 
   return (
     <>
